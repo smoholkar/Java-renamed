@@ -3,6 +3,7 @@
  * To find if a number is power of 2.
  */
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
