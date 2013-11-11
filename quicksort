@@ -1,0 +1,86 @@
+/**
+ * @author sonalimoholkar
+ * Quick Sort
+ */
+package SortingAlgos;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class quicksort{
+	
+	private static int partition(int arr[],int left,int right){
+		int mid = left + ((right-left)/2);
+		int pivotValue = arr[mid];
+		// I put pivot on the extreme right
+		arr[mid] = arr[right];
+		arr[right]=pivotValue;
+		// storeIndex is used to store the values less than the pivot
+		int storeIndex=left;
+		
+		// I start with the left most and compare each element with the pivot
+		for(int i=left;i<right;i++){
+			if(arr[i]<pivotValue){
+				int temp1 = arr[i];
+				arr[i]=arr[storeIndex];
+				arr[storeIndex]=temp1;
+				storeIndex++;
+			}
+		}
+		
+		// Once I have traversed through the sub partition to find elements less than pivot 
+		// I swap the value at storedIndex with the pivot
+		
+		int temp2 = arr[storeIndex];
+		arr[storeIndex]=pivotValue;
+		arr[right]=temp2;
+		
+		/* Now that the values of storeIndex and Pivot are swapped. We have the pivot in the correct
+		 position now and all elements to the left of the pivot are smaller than the pivot
+		 and all elements to the right of the pivot are greater than the pivot
+		 Now I return the storeIndex . this will be the pivot and the reference for the
+		 next partitions*/
+		
+		return storeIndex;
+		
+	}
+	private static void quickSort(int arr[],int left,int right){
+		if(left<right){
+			int pivot = partition(arr,left,right);
+			quickSort(arr,left,pivot-1);
+			quickSort(arr,pivot+1,right);
+		}
+	}
+	public static void quick(int arr[]){
+		quickSort(arr,0,arr.length-1);
+	}
+	
+	public static int[] acceptArray(int arr[]) throws NumberFormatException, IOException{
+		System.out.println("Please enter the elements");
+		for(int i=0;i<arr.length;i++){
+			BufferedReader bf1 = new BufferedReader(new InputStreamReader(System.in));
+			arr[i]= Integer.parseInt(bf1.readLine());
+		}
+		return arr;
+	}
+	public static void main(String args[]) throws NumberFormatException, IOException{
+		//int arr[] = {6,2,1,9};
+		System.out.println("Please enter the size of the array");
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		int choice = Integer.parseInt(bf.readLine());
+		int arr[] = new int[choice];
+		acceptArray(arr);
+		
+ 		if(arr.length<=1){
+			System.out.println("The array is already sorted");
+			System.out.println(arr);
+		}
+		else{
+		quick(arr);
+		for(int i:arr){
+		System.out.println(i);
+		}
+		}
+	}
+}
